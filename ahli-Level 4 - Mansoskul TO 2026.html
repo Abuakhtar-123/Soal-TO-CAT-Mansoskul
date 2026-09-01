@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CAT MANSOSKUL - Competency Assessment Level 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .option-text, .question-situation, .narrative-card p {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        body {
+            font-family: 'Segoe UI', 'Times New Roman', Georgia, serif;
+            background: #f0ebe3;
+            min-height: 100vh;
+        }
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #fff8f0;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #2c5f2d;
+            color: #f5e6ca;
+            padding: 20px 30px;
+            text-align: center;
+            border-bottom: 5px solid #d4a373;
+        }
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 2px;
+            font-family: 'Times New Roman', serif;
+        }
+        .header h1 small {
+            font-size: 14px;
+            font-weight: normal;
+            display: block;
+            margin-top: 8px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        .header .agency {
+            font-size: 11px;
+            margin-top: 12px;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+        .login-panel {
+            padding: 50px 30px;
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid #e0d5c0;
+        }
+        .login-card h2 {
+            color: #2c5f2d;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a4a4a;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0d5c0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #fefcf8;
+            user-select: text;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #2c5f2d;
+            box-shadow: 0 0 0 3px rgba(44,95,45,0.2);
+        }
+        .btn {
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #1e4520;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(44,95,45,0.3);
+        }
+        .btn-secondary {
+            background: #d4a373;
+        }
+        .btn-secondary:hover {
+            background: #b8834f;
+        }
+        .btn-orange {
+            background: #e67e22;
+        }
+        .btn-orange:hover {
+            background: #d35400;
+        }
+        .exam-container {
+            display: none;
+        }
+        .section-transition {
+            display: none;
+            text-align: center;
+            padding: 60px 30px;
+            background: #fff8f0;
+            min-height: 70vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .transition-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid #2c5f2d;
+        }
+        .transition-card h2 {
+            color: #2c5f2d;
+            margin-bottom: 20px;
+        }
+        .transition-card p {
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .top-bar {
+            background: #f5efe5;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid #ddd0b8;
+        }
+        .user-info {
+            font-weight: bold;
+            color: #2c5f2d;
+            font-size: 14px;
+        }
+        .section-info {
+            background: #2c5f2d;
+            color: #f5e6ca;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        .timer {
+            background: #2c3e2d;
+            color: #f5e6ca;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-family: monospace;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .timer.warning {
+            background: #c0392b;
+            animation: pulse 0.8s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.02); }
+        }
+        .main-exam {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: calc(100vh - 130px);
+        }
+        .narrative-panel {
+            flex: 1.2;
+            background: #fefaf3;
+            border-right: 2px solid #e8dcc8;
+            padding: 20px;
+            max-height: calc(100vh - 130px);
+            overflow-y: auto;
+        }
+        .narrative-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid #2c5f2d;
+        }
+        .narrative-card h3 {
+            color: #2c5f2d;
+            margin-bottom: 12px;
+            font-size: 18px;
+            border-bottom: 1px solid #e8dcc8;
+            padding-bottom: 8px;
+        }
+        .narrative-card p {
+            line-height: 1.7;
+            font-size: 14px;
+            color: #2d3e2d;
+            text-align: justify;
+        }
+        .section-badge {
+            display: inline-block;
+            background: #d4a373;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 12px;
+            font-family: 'Segoe UI', monospace;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #c0b89a;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .data-table th {
+            background-color: #2c5f2d;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f5f0e6;
+        }
+        .data-table tr:hover {
+            background-color: #e8e0d0;
+        }
+        .data-table td {
+            text-align: center;
+        }
+        .data-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .question-panel {
+            flex: 2;
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;
+            background: #fffbf5;
+        }
+        .question-header {
+            background: #e8e0d0;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .question-title {
+            font-weight: bold;
+            color: #2c5f2d;
+            font-size: 18px;
+        }
+        .question-situation {
+            background: #f8f3ea;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border-left: 4px solid #d4a373;
+            line-height: 1.7;
+            font-size: 15px;
+            color: #2d3e2d;
+        }
+        .options {
+            flex: 1;
+        }
+        .option {
+            background: white;
+            border: 2px solid #e8dcc8;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .option:hover {
+            border-color: #2c5f2d;
+            background: #f5f0e6;
+        }
+        .option.selected {
+            border-color: #2c5f2d;
+            background: #e8f0e4;
+            box-shadow: 0 2px 8px rgba(44,95,45,0.15);
+        }
+        .option-letter {
+            width: 38px;
+            height: 38px;
+            background: #f0e8dc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #5a4a2e;
+            flex-shrink: 0;
+        }
+        .option.selected .option-letter {
+            background: #2c5f2d;
+            color: white;
+        }
+        .option-text {
+            flex: 1;
+            line-height: 1.5;
+        }
+        .nav-sidebar {
+            width: 220px;
+            background: #f5efe5;
+            border-left: 1px solid #e0d5c0;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .nav-sidebar h4 {
+            color: #2c5f2d;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .nav-btn {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8e0d0;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn.answered {
+            background: #2c5f2d;
+            color: white;
+        }
+        .nav-btn.current {
+            background: #d4a373;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 10px;
+            margin-top: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+        }
+        .bottom-nav {
+            padding: 15px 25px;
+            background: #f5efe5;
+            border-top: 1px solid #ddd0b8;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .btn-small {
+            padding: 10px 28px;
+            font-size: 14px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            padding: 35px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border-top: 8px solid #2c5f2d;
+        }
+        .result-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2c5f2d;
+            margin: 20px 0;
+        }
+        .pass {
+            color: #2c5f2d;
+            background: #e0f0e0;
+            padding: 12px;
+            border-radius: 40px;
+        }
+        .fail {
+            color: #c0392b;
+            background: #ffe0e0;
+            padding: 12px;
+            border-radius: 40px;
+        }
+        .protection-warning {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: #ffcc00;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        @media (max-width: 1000px) {
+            .main-exam {
+                flex-direction: column;
+            }
+            .narrative-panel {
+                max-height: 350px;
+                border-right: none;
+                border-bottom: 2px solid #e8dcc8;
+            }
+            .nav-sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid #e0d5c0;
+            }
+            .table-wrapper {
+                overflow-x: scroll;
+            }
+            .data-table {
+                font-size: 10px;
+            }
+            .data-table th, .data-table td {
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // PERLINDUNGAN MAKSIMAL
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        alert("❌ Akses ditolak! Klik kanan tidak diizinkan pada aplikasi ujian ini.");
+        return false;
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12') { e.preventDefault(); alert("❌ Developer tools tidak dapat diakses."); return false; }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); alert("❌ Developer tools tidak dapat diakses."); return false; }
+        if (e.ctrlKey && e.key === 'u') { e.preventDefault(); alert("❌ Source code tidak dapat dilihat."); return false; }
+        if (e.ctrlKey && e.key === 's') { e.preventDefault(); alert("❌ Menyimpan halaman tidak diizinkan."); return false; }
+        if (e.ctrlKey && e.key === 'p') { e.preventDefault(); alert("❌ Mencetak halaman tidak diizinkan."); return false; }
+        if (e.ctrlKey && e.key === 'a') { e.preventDefault(); return false; }
+        if (e.ctrlKey && e.key === 'c') { e.preventDefault(); alert("❌ Menyalin teks tidak diizinkan."); return false; }
+        if (e.ctrlKey && e.key === 'x') { e.preventDefault(); alert("❌ Memotong teks tidak diizinkan."); return false; }
+    });
+    document.addEventListener('selectstart', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        alert("❌ Menyalin teks tidak diizinkan selama ujian berlangsung.");
+        return false;
+    });
+    document.addEventListener('cut', function(e) {
+        e.preventDefault();
+        alert("❌ Memotong teks tidak diizinkan selama ujian berlangsung.");
+        return false;
+    });
+    document.addEventListener('paste', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    if (typeof window.console !== "undefined") {
+        window.console.log = function() {};
+        window.console.warn = function() {};
+        window.console.error = function() {};
+        window.console.info = function() {};
+    }
+    document.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+            alert("❌ Screenshot tidak diizinkan selama ujian berlangsung.");
+            return false;
+        }
+    });
+</script>
+
+<div class="app-container" id="app">
+    <div id="loginPanel">
+        <div class="header">
+            <h1>CIVIL SERVICE ASSESSMENT<br><small>Computer Assisted Test - MANSOSKUL (LEVEL 4)</small></h1>
+            <div class="agency">National Personnel Testing System | Competency Evaluation</div>
+        </div>
+        <div class="login-panel">
+            <div class="login-card">
+                <h2>🔐 Participant Login</h2>
+                <div class="input-group">
+                    <label>👤 Full Name</label>
+                    <input type="text" id="namaPeserta" placeholder="Enter your full name" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label>🔑 Access Code</label>
+                    <input type="password" id="password" placeholder="Enter access code" autocomplete="off">
+                </div>
+                <button class="btn" onclick="login()">▶ Start Assessment</button>
+                <p style="margin-top: 20px; color: #8a7a60; font-size: 12px;">Created by Geelongers2026</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="sectionTransition" class="section-transition">
+        <div class="transition-card">
+            <h2>📋 SECTION 2: CASE STUDY</h2>
+            <p>Anda akan memasuki <strong>Seksi 2</strong> yang terdiri dari 4 subseksi berdasarkan profil wilayah berbeda.<br>
+            Setiap subseksi memiliki narasi panjang yang akan ditampilkan di sidebar kiri.<br>
+            Total soal: <strong>40 soal</strong> (masing-masing subseksi 10 soal).<br><br>
+            Pastikan Anda dalam keadaan siap sebelum melanjutkan.</p>
+            <button class="btn btn-orange" onclick="startSection2()">🚀 Mulai Seksi 2</button>
+        </div>
+    </div>
+
+    <div id="examContainer" class="exam-container">
+        <div class="header" style="padding: 12px 25px;">
+            <h1 style="font-size: 20px;">COMPETENCY ASSESSMENT - MANSOSKUL (LEVEL 4)</h1>
+        </div>
+        <div class="top-bar">
+            <div class="user-info" id="userDisplay"></div>
+            <div class="section-info" id="sectionInfo">SEKSI 1 - General Competency</div>
+            <div class="timer" id="timer">120:00</div>
+        </div>
+
+        <div class="main-exam">
+            <div class="narrative-panel" id="narrativePanel"></div>
+            <div class="question-panel">
+                <div class="question-header">
+                    <span class="question-title" id="questionTitle">Soal 1</span>
+                    <span style="font-size: 13px; color:#8a7a60;">Skor: 80/100/120</span>
+                </div>
+                <div class="question-situation" id="situationText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+            <div class="nav-sidebar">
+                <h4>📌 Question Navigator</h4>
+                <div class="question-grid" id="questionGrid"></div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background:#e8e0d0;"></div> Not answered</div>
+                    <div class="legend-item"><div class="legend-color" style="background:#2c5f2d;"></div> Answered</div>
+                    <div class="legend-item"><div class="legend-color" style="background:#d4a373;"></div> Current</div>
+                </div>
+                <button id="nextSubsectionBtn" class="btn btn-small" style="margin-top: 20px; width:100%; display:none;" onclick="goToNextSubsection()">▶ Lanjut Subseksi Selanjutnya</button>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="btn btn-small" onclick="previousQuestion()">◀ Previous</button>
+            <button class="btn btn-small btn-secondary" onclick="confirmSubmit()">✓ Finish & Submit</button>
+            <button class="btn btn-small" onclick="nextQuestion()">Next ▶</button>
+        </div>
+    </div>
+</div>
+
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <h2>🏆 ASSESSMENT RESULT 🏆</h2>
+        <p id="resultName"></p>
+        <div class="result-score" id="resultScore">0</div>
+        <p id="resultDetail"></p>
+        <button class="btn" onclick="closeModalAndReset()">Close</button>
+    </div>
+</div>
+
+<script>
+    // ======================== SEKSI 1 - LEVEL 4 (50 SOAL LENGKAP) ========================
+    const section1Questions = [
+        {number:1,title:"Koordinasi Tim Pelaksana",situation:"Dalam pelaksanaan program di unit Anda, terjadi keterlambatan karena kurangnya koordinasi antar anggota tim yang memiliki tugas berbeda namun saling terkait.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda segera mengatur pembagian tugas yang lebih jelas, menetapkan jadwal koordinasi rutin, serta memastikan setiap anggota memahami perannya agar pelaksanaan program kembali sesuai target",score:100},{label:"B",text:"Anda membiarkan tim menyelesaikan pekerjaannya masing-masing sesuai tanggung jawab yang telah ditetapkan sebelumnya tanpa melakukan intervensi tambahan",score:80},{label:"C",text:"Anda menginisiasi penyelarasan kerja lintas unit serta menyusun mekanisme koordinasi terpadu agar program dapat berjalan lebih efektif secara menyeluruh",score:120}]},
+        {number:2,title:"Pelayanan Publik -- Konsistensi Layanan",situation:"Masyarakat mengeluhkan adanya perbedaan kualitas layanan antar petugas dalam satu unit kerja.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memastikan seluruh petugas memahami standar layanan, melakukan briefing rutin, serta mengawasi implementasi agar kualitas layanan menjadi konsisten",score:100},{label:"B",text:"Anda hanya mengingatkan petugas yang melakukan kesalahan tanpa melakukan perbaikan menyeluruh terhadap sistem layanan",score:80},{label:"C",text:"Anda merancang sistem monitoring layanan berbasis indikator kinerja serta integrasi sistem layanan untuk meningkatkan kualitas secara menyeluruh",score:120}]},
+        {number:3,title:"Pengelolaan Program",situation:"Program yang Anda kelola tidak berjalan sesuai jadwal karena lemahnya pengendalian pelaksanaan di tingkat tim.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda melakukan pengawasan lebih ketat terhadap pelaksanaan kegiatan serta memastikan setiap tahapan berjalan sesuai rencana kerja yang telah ditetapkan",score:100},{label:"B",text:"Anda tetap melanjutkan program sesuai kondisi yang ada tanpa melakukan penyesuaian atau penguatan pengendalian",score:80},{label:"C",text:"Anda mengembangkan sistem pengendalian program berbasis data yang memungkinkan pemantauan kinerja secara lintas unit dan berkelanjutan",score:120}]},
+        {number:4,title:"Komunikasi Internal",situation:"Terjadi miskomunikasi dalam tim sehingga beberapa anggota tidak memahami perubahan kebijakan terbaru.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memastikan informasi disampaikan ulang secara jelas kepada seluruh anggota tim serta melakukan klarifikasi agar tidak terjadi kesalahan dalam pelaksanaan",score:100},{label:"B",text:"Anda beranggapan bahwa setiap anggota tim seharusnya sudah memahami informasi yang telah disampaikan sebelumnya",score:80},{label:"C",text:"Anda mengembangkan sistem komunikasi internal berbasis platform terintegrasi agar penyampaian informasi lebih efektif dan terdokumentasi",score:120}]},
+        {number:5,title:"Pengambilan Keputusan Operasional",situation:"Dalam situasi mendesak, Anda harus mengambil keputusan cepat terkait pelaksanaan kegiatan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengambil keputusan berdasarkan informasi yang tersedia serta memastikan tim dapat segera melaksanakan keputusan tersebut dengan koordinasi yang jelas",score:100},{label:"B",text:"Anda menunda keputusan hingga mendapatkan informasi yang lebih lengkap meskipun berisiko menghambat pelaksanaan kegiatan",score:80},{label:"C",text:"Anda menyusun kerangka pengambilan keputusan berbasis analisis risiko yang dapat digunakan secara lintas unit dalam situasi serupa",score:120}]},
+        {number:6,title:"Kerja Sama Tim",situation:"Terjadi perbedaan pendapat antar anggota tim yang mulai menghambat pelaksanaan pekerjaan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memfasilitasi diskusi untuk menyatukan pandangan serta memastikan tim tetap fokus pada penyelesaian tugas bersama",score:100},{label:"B",text:"Anda membiarkan perbedaan tersebut diselesaikan secara alami oleh masing-masing anggota tim",score:80},{label:"C",text:"Anda membangun mekanisme kerja kolaboratif lintas fungsi yang dapat meningkatkan sinergi tim secara lebih luas",score:120}]},
+        {number:7,title:"Pengawasan Pelaksanaan",situation:"Anda menemukan adanya ketidaksesuaian dalam pelaksanaan kegiatan di lapangan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda segera melakukan koreksi serta memastikan tim memperbaiki pelaksanaan sesuai dengan standar yang telah ditetapkan",score:100},{label:"B",text:"Anda mencatat temuan tersebut sebagai bahan evaluasi tanpa melakukan tindakan langsung",score:80},{label:"C",text:"Anda mengembangkan sistem pengawasan berbasis risiko yang terintegrasi untuk meningkatkan akuntabilitas pelaksanaan program",score:120}]},
+        {number:8,title:"Pelayanan Publik -- Respons Keluhan",situation:"Terdapat keluhan masyarakat terkait pelayanan yang lambat di unit Anda.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menindaklanjuti keluhan tersebut dengan mengoordinasikan tim untuk mempercepat pelayanan serta memastikan perbaikan dilakukan",score:100},{label:"B",text:"Anda menerima keluhan tersebut sebagai hal yang biasa terjadi tanpa melakukan perbaikan langsung",score:80},{label:"C",text:"Anda merancang sistem manajemen keluhan berbasis teknologi yang dapat meningkatkan responsivitas layanan secara menyeluruh",score:120}]},
+        {number:9,title:"Pengelolaan Sumber Daya",situation:"Sumber daya yang tersedia terbatas sementara target program cukup tinggi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoptimalkan penggunaan sumber daya yang ada melalui pengaturan prioritas dan koordinasi tim agar target tetap dapat dicapai",score:100},{label:"B",text:"Anda menjalankan program sesuai kondisi yang ada tanpa melakukan upaya optimalisasi",score:80},{label:"C",text:"Anda menyusun strategi pengelolaan sumber daya lintas unit untuk meningkatkan efisiensi secara jangka panjang",score:120}]},
+        {number:10,title:"Implementasi Kebijakan",situation:"Kebijakan baru belum dipahami secara merata oleh pelaksana di lapangan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memastikan sosialisasi dilakukan secara langsung, memberikan penjelasan rinci, serta mengoordinasikan pelaksana agar kebijakan dapat diterapkan dengan baik",score:100},{label:"B",text:"Anda menganggap bahwa pelaksana akan memahami kebijakan tersebut seiring berjalannya waktu",score:80},{label:"C",text:"Anda mengembangkan sistem implementasi kebijakan berbasis integrasi lintas unit dan monitoring berkelanjutan",score:120}]},
+        {number:11,title:"Koordinasi Tim -- Multi Kegiatan",situation:"Dalam pelaksanaan beberapa kegiatan sekaligus di unit Anda, terlihat bahwa sebagian anggota tim mengalami kebingungan dalam menentukan prioritas pekerjaan karena adanya tumpang tindih jadwal dan kurangnya kejelasan pembagian tugas. Kondisi ini mulai berdampak pada keterlambatan output serta menurunnya kualitas hasil pekerjaan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda segera melakukan penataan ulang pembagian tugas secara lebih rinci, menetapkan prioritas kegiatan yang jelas, serta mengoordinasikan jadwal kerja tim agar pelaksanaan kegiatan dapat kembali berjalan terarah dan efisien",score:100},{label:"B",text:"Anda tetap menjalankan kegiatan sesuai rencana awal dengan harapan tim dapat menyesuaikan diri terhadap dinamika pekerjaan yang ada",score:80},{label:"C",text:"Anda menginisiasi penyusunan sistem manajemen kerja terintegrasi lintas unit yang mampu mengatur prioritas dan alur kerja secara lebih sistemik dan berkelanjutan",score:120}]},
+        {number:12,title:"Pelayanan Publik -- Standar Layanan",situation:"Dalam evaluasi internal, ditemukan bahwa pelaksanaan standar pelayanan di unit Anda belum konsisten karena perbedaan pemahaman antar petugas serta belum adanya mekanisme pengawasan yang cukup kuat.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memastikan seluruh petugas memahami kembali standar pelayanan melalui pengarahan langsung serta melakukan pengawasan rutin agar implementasi layanan menjadi lebih konsisten",score:100},{label:"B",text:"Anda membiarkan petugas menjalankan layanan sesuai pemahaman masing-masing selama tidak menimbulkan keluhan besar dari masyarakat",score:80},{label:"C",text:"Anda mengembangkan sistem pengendalian mutu layanan berbasis indikator kinerja yang dapat diterapkan secara menyeluruh dan berkelanjutan",score:120}]},
+        {number:13,title:"Pengelolaan Program -- Monitoring Pelaksanaan",situation:"Program yang Anda kelola melibatkan beberapa kegiatan yang berjalan secara paralel, namun laporan perkembangan sering terlambat dan tidak seragam sehingga menyulitkan pemantauan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menetapkan mekanisme pelaporan yang lebih terstruktur serta melakukan monitoring rutin agar pelaksanaan kegiatan dapat dipantau secara lebih efektif",score:100},{label:"B",text:"Anda tetap menggunakan sistem pelaporan yang ada meskipun kurang optimal dalam mendukung pemantauan program",score:80},{label:"C",text:"Anda menginisiasi pengembangan sistem monitoring berbasis teknologi yang dapat mengintegrasikan seluruh laporan secara real-time",score:120}]},
+        {number:14,title:"Komunikasi -- Penyampaian Instruksi",situation:"Dalam pelaksanaan tugas, beberapa anggota tim tidak memahami instruksi yang diberikan sehingga hasil pekerjaan tidak sesuai dengan yang diharapkan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menyampaikan kembali instruksi secara lebih jelas, memastikan setiap anggota memahami tugasnya, serta membuka ruang klarifikasi agar tidak terjadi kesalahan",score:100},{label:"B",text:"Anda beranggapan bahwa anggota tim seharusnya sudah memahami instruksi yang telah diberikan sebelumnya",score:80},{label:"C",text:"Anda mengembangkan sistem komunikasi kerja berbasis prosedur standar dan platform digital untuk memastikan kejelasan instruksi secara menyeluruh",score:120}]},
+        {number:15,title:"Pengambilan Keputusan -- Operasional Tim",situation:"Dalam kondisi tertentu, Anda harus mengambil keputusan cepat terkait perubahan teknis pelaksanaan kegiatan di lapangan karena adanya kendala yang tidak terduga.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengambil keputusan secara cepat berdasarkan kondisi yang ada serta mengoordinasikan tim agar dapat segera menyesuaikan pelaksanaan kegiatan",score:100},{label:"B",text:"Anda menunggu arahan dari atasan meskipun kondisi di lapangan membutuhkan keputusan segera",score:80},{label:"C",text:"Anda menyusun kerangka pengambilan keputusan berbasis prosedur standar yang dapat diterapkan lintas unit dalam situasi serupa",score:120}]},
+        {number:16,title:"Kerja Sama -- Dinamika Tim",situation:"Dalam tim Anda terdapat beberapa anggota yang kurang aktif berkontribusi sehingga membebani anggota lain dan berpotensi menurunkan kinerja tim secara keseluruhan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda melakukan pendekatan kepada anggota tersebut, memberikan arahan yang jelas, serta mengoordinasikan kembali pembagian tugas agar kontribusi tim menjadi lebih seimbang",score:100},{label:"B",text:"Anda membiarkan kondisi tersebut berjalan dengan asumsi bahwa anggota lain dapat menutupi kekurangan yang ada",score:80},{label:"C",text:"Anda merancang sistem manajemen kinerja tim berbasis evaluasi individu dan kolaborasi lintas fungsi untuk meningkatkan produktivitas secara menyeluruh",score:120}]},
+        {number:17,title:"Pengawasan -- Kualitas Pelaksanaan",situation:"Anda menemukan bahwa kualitas hasil pekerjaan tim tidak sesuai dengan standar yang telah ditetapkan karena kurangnya pengawasan selama proses berlangsung.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda meningkatkan pengawasan selama pelaksanaan kegiatan serta memberikan arahan langsung kepada tim untuk memastikan hasil sesuai standar",score:100},{label:"B",text:"Anda menerima hasil pekerjaan tersebut selama masih dapat digunakan meskipun tidak sepenuhnya memenuhi standar",score:80},{label:"C",text:"Anda mengembangkan sistem pengawasan berbasis kualitas yang terintegrasi dalam seluruh proses kerja organisasi",score:120}]},
+        {number:18,title:"Pelayanan Publik -- Respons Internal",situation:"Beberapa permohonan layanan mengalami keterlambatan karena kurangnya koordinasi antar petugas yang menangani proses yang berbeda.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan alur kerja antar petugas, memperjelas peran masing-masing, serta memastikan proses pelayanan berjalan lebih lancar",score:100},{label:"B",text:"Anda tetap menjalankan proses pelayanan sesuai prosedur yang ada tanpa melakukan perbaikan koordinasi",score:80},{label:"C",text:"Anda merancang sistem layanan terintegrasi yang menghubungkan seluruh tahapan proses pelayanan secara otomatis",score:120}]},
+        {number:19,title:"Pengelolaan Sumber Daya -- Tim",situation:"Dalam pelaksanaan program, keterbatasan sumber daya manusia menyebabkan beban kerja tidak merata di antara anggota tim.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengatur kembali pembagian tugas secara proporsional serta mengoordinasikan tim agar beban kerja dapat terdistribusi secara lebih adil",score:100},{label:"B",text:"Anda tetap menjalankan pembagian tugas yang ada meskipun terdapat ketidakseimbangan beban kerja",score:80},{label:"C",text:"Anda menginisiasi perencanaan kebutuhan SDM lintas unit untuk mendukung pelaksanaan program secara berkelanjutan",score:120}]},
+        {number:20,title:"Implementasi Kebijakan -- Penguatan Pelaksana",situation:"Dalam implementasi kebijakan baru, Anda melihat bahwa sebagian pelaksana belum memahami secara utuh isi dan tujuan kebijakan tersebut.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda melakukan sosialisasi ulang secara langsung, memberikan penjelasan rinci, serta mengoordinasikan pelaksana agar implementasi kebijakan berjalan sesuai ketentuan",score:100},{label:"B",text:"Anda menganggap bahwa pemahaman pelaksana akan meningkat seiring waktu tanpa perlu intervensi tambahan",score:80},{label:"C",text:"Anda mengembangkan sistem implementasi kebijakan berbasis integrasi lintas unit dan monitoring berkelanjutan",score:120}]},
+        {number:21,title:"Koordinasi Tim -- Sinkronisasi Kegiatan",situation:"Dalam pelaksanaan program di unit Anda, beberapa kegiatan yang saling berkaitan tidak berjalan secara sinkron karena masing-masing anggota tim bekerja berdasarkan pemahaman sendiri terhadap tugasnya. Hal ini menyebabkan output yang dihasilkan tidak saling mendukung dan berpotensi menghambat pencapaian target program secara keseluruhan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda melakukan penyesuaian langsung terhadap pembagian tugas, menyelaraskan kembali pemahaman tim melalui koordinasi intensif, serta memastikan setiap kegiatan berjalan sesuai dengan alur yang telah disepakati bersama",score:100},{label:"B",text:"Anda tetap membiarkan anggota tim menjalankan tugasnya masing-masing sesuai pemahaman yang ada selama pekerjaan tetap selesai meskipun tidak sepenuhnya terintegrasi",score:80},{label:"C",text:"Anda menginisiasi pengembangan sistem kerja terintegrasi lintas fungsi yang mengatur alur koordinasi dan keterkaitan antar kegiatan secara lebih sistematis dan berkelanjutan",score:120}]},
+        {number:22,title:"Pelayanan Publik -- Pengendalian Kualitas Layanan",situation:"Dalam evaluasi pelayanan, ditemukan bahwa meskipun standar layanan telah ditetapkan, implementasinya masih bervariasi antar petugas karena kurangnya pengendalian dan monitoring yang konsisten.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memastikan kembali penerapan standar layanan melalui pengarahan rutin, melakukan pengawasan langsung, serta memberikan umpan balik kepada petugas agar kualitas layanan menjadi lebih konsisten",score:100},{label:"B",text:"Anda tetap menjalankan sistem layanan yang ada tanpa melakukan penguatan pengendalian karena dianggap masih dalam batas wajar",score:80},{label:"C",text:"Anda mengembangkan sistem pengendalian mutu layanan berbasis indikator kinerja dan teknologi yang dapat memonitor kualitas layanan secara menyeluruh",score:120}]},
+        {number:23,title:"Pengelolaan Program -- Ketertiban Pelaksanaan",situation:"Dalam pelaksanaan program, Anda melihat bahwa beberapa kegiatan tidak terdokumentasi dengan baik sehingga menyulitkan proses evaluasi dan pelaporan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menata kembali mekanisme dokumentasi kegiatan, mengoordinasikan tim untuk mencatat setiap tahapan pelaksanaan, serta memastikan data tersimpan dengan rapi untuk keperluan evaluasi",score:100},{label:"B",text:"Anda tetap menjalankan program tanpa melakukan perbaikan pada sistem dokumentasi selama kegiatan tetap berjalan",score:80},{label:"C",text:"Anda menginisiasi pembangunan sistem dokumentasi berbasis digital yang terintegrasi dengan proses monitoring dan evaluasi program",score:120}]},
+        {number:24,title:"Komunikasi -- Kejelasan Instruksi Kerja",situation:"Dalam pelaksanaan tugas, Anda menemukan bahwa sebagian anggota tim sering salah memahami instruksi kerja karena penyampaian informasi yang kurang terstruktur.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memperjelas instruksi kerja dengan memberikan penjelasan rinci, memastikan pemahaman anggota tim, serta membuka ruang diskusi untuk menghindari kesalahan",score:100},{label:"B",text:"Anda beranggapan bahwa anggota tim seharusnya dapat memahami instruksi yang telah diberikan tanpa perlu penjelasan tambahan",score:80},{label:"C",text:"Anda mengembangkan sistem komunikasi kerja berbasis standar prosedur dan platform digital untuk memastikan kejelasan informasi secara menyeluruh",score:120}]},
+        {number:25,title:"Pengambilan Keputusan -- Penyesuaian Lapangan",situation:"Dalam pelaksanaan kegiatan di lapangan, terjadi perubahan kondisi yang mengharuskan penyesuaian teknis agar kegiatan tetap dapat berjalan sesuai tujuan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengambil keputusan dengan mempertimbangkan kondisi aktual di lapangan serta mengoordinasikan tim untuk menyesuaikan pelaksanaan kegiatan secara efektif",score:100},{label:"B",text:"Anda tetap menjalankan kegiatan sesuai rencana awal tanpa melakukan penyesuaian meskipun kondisi sudah berubah",score:80},{label:"C",text:"Anda menyusun kerangka adaptasi kebijakan berbasis analisis risiko yang dapat digunakan untuk menghadapi perubahan serupa di masa depan",score:120}]},
+        {number:26,title:"Kerja Sama Tim -- Penyelesaian Konflik",situation:"Dalam tim Anda, terdapat perbedaan cara kerja antar anggota yang mulai menimbulkan konflik kecil dan berdampak pada efektivitas kerja tim.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memfasilitasi diskusi untuk menyamakan persepsi, mengoordinasikan kembali pembagian tugas, serta memastikan kerja sama tim tetap terjaga",score:100},{label:"B",text:"Anda membiarkan anggota tim menyelesaikan perbedaan tersebut secara mandiri tanpa intervensi langsung",score:80},{label:"C",text:"Anda merancang sistem kerja kolaboratif lintas fungsi yang mengatur pola interaksi dan kerja sama tim secara lebih terstruktur",score:120}]},
+        {number:27,title:"Pengawasan -- Kepatuhan Pelaksanaan",situation:"Anda menemukan bahwa beberapa kegiatan tidak dilaksanakan sesuai dengan prosedur yang telah ditetapkan karena kurangnya pengawasan selama proses berlangsung.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda meningkatkan pengawasan terhadap pelaksanaan kegiatan, memberikan arahan langsung kepada tim, serta memastikan seluruh kegiatan kembali sesuai prosedur",score:100},{label:"B",text:"Anda tetap menerima pelaksanaan kegiatan tersebut selama hasil akhirnya masih dapat digunakan",score:80},{label:"C",text:"Anda mengembangkan sistem pengawasan berbasis risiko yang terintegrasi untuk meningkatkan kepatuhan secara menyeluruh",score:120}]},
+        {number:28,title:"Pelayanan Publik -- Koordinasi Proses Layanan",situation:"Dalam proses pelayanan, terdapat beberapa tahapan yang melibatkan petugas berbeda, namun koordinasi antar tahapan belum berjalan dengan baik sehingga menyebabkan keterlambatan layanan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan alur kerja antar petugas, memperjelas peran masing-masing, serta memastikan proses layanan berjalan lebih lancar dan terarah",score:100},{label:"B",text:"Anda tetap menjalankan proses layanan sesuai mekanisme yang ada tanpa melakukan perbaikan koordinasi",score:80},{label:"C",text:"Anda merancang sistem layanan terintegrasi berbasis teknologi yang menghubungkan seluruh tahapan proses pelayanan",score:120}]},
+        {number:29,title:"Pengelolaan Sumber Daya -- Efisiensi Tim",situation:"Dalam pelaksanaan kegiatan, Anda melihat adanya ketidakefisienan penggunaan waktu kerja karena kurangnya pengaturan tugas yang jelas di antara anggota tim.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengatur kembali pembagian tugas dan jadwal kerja secara lebih terstruktur serta mengoordinasikan tim agar penggunaan waktu menjadi lebih efisien",score:100},{label:"B",text:"Anda membiarkan kondisi tersebut berjalan selama target pekerjaan tetap dapat diselesaikan",score:80},{label:"C",text:"Anda menginisiasi pengembangan sistem manajemen kerja berbasis teknologi yang dapat mengoptimalkan efisiensi penggunaan waktu secara menyeluruh",score:120}]},
+        {number:30,title:"Implementasi Kebijakan -- Konsistensi Pelaksanaan",situation:"Dalam implementasi kebijakan, Anda melihat adanya perbedaan cara pelaksanaan antar anggota tim karena perbedaan pemahaman terhadap aturan yang ada.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memastikan keseragaman pelaksanaan melalui sosialisasi ulang, koordinasi intensif, serta pengawasan agar kebijakan diterapkan secara konsisten",score:100},{label:"B",text:"Anda membiarkan variasi pelaksanaan selama tidak menimbulkan masalah yang signifikan",score:80},{label:"C",text:"Anda mengembangkan sistem implementasi kebijakan berbasis standar operasional terintegrasi dan monitoring berkelanjutan",score:120}]},
+        {number:31,title:"Koordinasi Lintas OPD -- Penanganan Banjir Perkotaan",situation:"Di sebuah kota, program penanganan banjir melibatkan beberapa OPD seperti Dinas PU, Lingkungan Hidup, dan Perumahan. Namun dalam pelaksanaannya, terjadi ketidaksinkronan antara pembangunan drainase oleh Dinas PU dan program normalisasi sungai oleh Dinas Lingkungan Hidup, sehingga hasilnya tidak optimal dan sering menimbulkan keluhan masyarakat karena banjir tetap terjadi di titik yang sama.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memfasilitasi koordinasi lintas OPD untuk menyelaraskan perencanaan dan pelaksanaan program agar kegiatan yang dilakukan dapat saling mendukung dan memberikan dampak yang lebih optimal",score:100},{label:"B",text:"Anda memastikan program di OPD Anda berjalan sesuai rencana kerja yang telah ditetapkan tanpa melakukan intervensi terhadap pelaksanaan di OPD lain",score:80},{label:"C",text:"Anda menginisiasi penyusunan sistem perencanaan dan pengendalian terpadu lintas OPD berbasis data spasial yang dapat mengintegrasikan seluruh program penanganan banjir secara berkelanjutan",score:120}]},
+        {number:32,title:"Integrasi Program -- Penurunan Stunting",situation:"Dalam program penurunan stunting di tingkat kabupaten, terdapat berbagai intervensi dari sektor kesehatan, pendidikan, dan sanitasi. Namun pelaksanaan di lapangan menunjukkan bahwa masing-masing program berjalan sendiri-sendiri tanpa adanya integrasi yang jelas, sehingga dampaknya tidak maksimal.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan antar OPD untuk menyelaraskan kegiatan yang berkaitan dengan penurunan stunting agar pelaksanaan program menjadi lebih terpadu dan efektif",score:100},{label:"B",text:"Anda fokus memastikan program di unit Anda berjalan dengan baik tanpa melakukan penyesuaian terhadap program dari OPD lain",score:80},{label:"C",text:"Anda menyusun kerangka kebijakan terpadu lintas sektor yang mengintegrasikan seluruh intervensi dalam satu sistem penanganan stunting jangka panjang",score:120}]},
+        {number:33,title:"Sinkronisasi Data -- Bantuan Sosial",situation:"Dalam penyaluran bantuan sosial, ditemukan adanya perbedaan data penerima antara Dinas Sosial, BPS, dan pemerintah desa, yang menyebabkan tumpang tindih penerima bantuan dan ketidaktepatan sasaran.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan penyelarasan data antar instansi terkait agar daftar penerima bantuan menjadi lebih akurat dan dapat digunakan bersama",score:100},{label:"B",text:"Anda menggunakan data yang tersedia di instansi Anda sebagai dasar pelaksanaan program tanpa melakukan sinkronisasi dengan data lain",score:80},{label:"C",text:"Anda menginisiasi pembangunan sistem data terpadu lintas instansi berbasis digital yang memungkinkan validasi dan pembaruan data secara berkelanjutan",score:120}]},
+        {number:34,title:"Pelayanan Terpadu -- Perizinan Berusaha",situation:"Pelayanan perizinan berusaha melibatkan beberapa unit kerja, namun prosesnya sering terhambat karena kurangnya koordinasi antar tahapan sehingga waktu pelayanan menjadi lebih lama dari standar yang ditetapkan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan alur proses antar unit agar setiap tahapan pelayanan dapat berjalan lebih sinkron dan efisien",score:100},{label:"B",text:"Anda memastikan proses pelayanan di unit Anda berjalan sesuai standar tanpa memperhatikan tahapan di unit lain",score:80},{label:"C",text:"Anda merancang sistem layanan perizinan terpadu berbasis digital yang mengintegrasikan seluruh proses dalam satu platform",score:120}]},
+        {number:35,title:"Pengambilan Keputusan -- Konflik Kepentingan OPD",situation:"Dalam penyusunan program prioritas daerah, terjadi perbedaan kepentingan antar OPD yang masing-masing mengusulkan program unggulannya, sehingga proses penentuan prioritas menjadi sulit dan berpotensi menimbulkan konflik.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memfasilitasi koordinasi antar OPD untuk menyepakati prioritas program berdasarkan kebutuhan daerah dan kesepakatan bersama",score:100},{label:"B",text:"Anda memperjuangkan program dari unit Anda agar tetap menjadi prioritas tanpa mempertimbangkan usulan dari OPD lain",score:80},{label:"C",text:"Anda menyusun kerangka penetapan prioritas berbasis analisis kebutuhan dan dampak jangka panjang yang dapat digunakan sebagai acuan bersama lintas OPD",score:120}]},
+        {number:36,title:"Koordinasi Implementasi -- Program Infrastruktur Desa",situation:"Program pembangunan infrastruktur desa melibatkan pemerintah kabupaten dan pemerintah desa, namun pelaksanaannya sering tidak sinkron karena kurangnya koordinasi dalam perencanaan dan penganggaran.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan perencanaan dan pelaksanaan program antara pemerintah kabupaten dan desa agar kegiatan dapat berjalan lebih selaras",score:100},{label:"B",text:"Anda menjalankan program sesuai kewenangan unit Anda tanpa melakukan koordinasi tambahan dengan pemerintah desa",score:80},{label:"C",text:"Anda menginisiasi sistem perencanaan terpadu antara kabupaten dan desa yang terintegrasi dalam satu platform perencanaan pembangunan",score:120}]},
+        {number:37,title:"Efisiensi Program -- Duplikasi Kegiatan",situation:"Dalam pelaksanaan program, ditemukan adanya kegiatan yang serupa dilaksanakan oleh beberapa OPD sehingga terjadi duplikasi dan pemborosan anggaran.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan antar OPD untuk menghindari duplikasi kegiatan dan meningkatkan efisiensi pelaksanaan program",score:100},{label:"B",text:"Anda tetap melaksanakan kegiatan di unit Anda sesuai rencana tanpa memperhatikan potensi duplikasi dengan OPD lain",score:80},{label:"C",text:"Anda mengembangkan sistem perencanaan program terintegrasi yang dapat mengidentifikasi dan mengeliminasi duplikasi kegiatan secara otomatis",score:120}]},
+        {number:38,title:"Kolaborasi Lintas Sektor -- UMKM Daerah",situation:"Program pengembangan UMKM melibatkan berbagai instansi seperti dinas koperasi, perindustrian, dan perdagangan, namun pelaksanaannya belum terkoordinasi dengan baik sehingga dampaknya kurang optimal.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan program antar instansi agar kegiatan pengembangan UMKM dapat saling mendukung dan meningkatkan hasil secara keseluruhan",score:100},{label:"B",text:"Anda fokus pada pelaksanaan program di instansi Anda tanpa melakukan kolaborasi dengan instansi lain",score:80},{label:"C",text:"Anda merancang model pengembangan UMKM terpadu lintas sektor berbasis ekosistem usaha yang berkelanjutan",score:120}]},
+        {number:39,title:"Pengawasan Lintas Unit -- Proyek Pembangunan",situation:"Pengawasan proyek pembangunan dilakukan oleh masing-masing unit tanpa koordinasi, sehingga terdapat perbedaan standar pengawasan dan potensi terjadinya celah dalam pengendalian.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan pengawasan antar unit agar standar pengawasan menjadi lebih seragam dan efektif",score:100},{label:"B",text:"Anda melakukan pengawasan hanya pada unit Anda sesuai dengan tugas yang diberikan",score:80},{label:"C",text:"Anda menginisiasi sistem pengawasan terpadu lintas unit berbasis risiko yang dapat meningkatkan akuntabilitas proyek secara menyeluruh",score:120}]},
+        {number:40,title:"Evaluasi Program -- Lintas OPD",situation:"Evaluasi program pembangunan dilakukan secara terpisah oleh masing-masing OPD sehingga sulit untuk melihat dampak program secara menyeluruh terhadap pembangunan daerah.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan evaluasi lintas OPD agar hasil evaluasi dapat memberikan gambaran yang lebih komprehensif",score:100},{label:"B",text:"Anda tetap melakukan evaluasi pada unit Anda masing-masing sesuai dengan mekanisme yang ada",score:80},{label:"C",text:"Anda mengembangkan sistem evaluasi terpadu berbasis indikator kinerja daerah yang terintegrasi lintas OPD",score:120}]},
+        {number:41,title:"Koordinasi Lintas OPD -- Penanganan Sampah Perkotaan",situation:"Di sebuah kota berkembang, permasalahan sampah semakin meningkat akibat pertumbuhan penduduk dan aktivitas ekonomi. Penanganan sampah melibatkan Dinas Lingkungan Hidup, Dinas Pekerjaan Umum, serta pemerintah kecamatan. Namun dalam pelaksanaannya, program pengangkutan, pengolahan, dan pengurangan sampah belum berjalan sinkron, sehingga terjadi penumpukan sampah di beberapa titik dan meningkatnya keluhan masyarakat.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan lintas OPD untuk menyelaraskan perencanaan dan pelaksanaan program pengelolaan sampah agar setiap kegiatan dapat saling mendukung dan berjalan lebih efektif di lapangan",score:100},{label:"B",text:"Anda memastikan pelaksanaan program pengelolaan sampah di unit Anda berjalan sesuai rencana kerja tanpa melakukan penyesuaian terhadap OPD lain",score:80},{label:"C",text:"Anda menginisiasi penyusunan sistem pengelolaan sampah terpadu berbasis teknologi yang mengintegrasikan seluruh proses dari hulu ke hilir dalam satu platform berkelanjutan",score:120}]},
+        {number:42,title:"Integrasi Program -- Penanggulangan Kemiskinan Daerah",situation:"Program penanggulangan kemiskinan di daerah melibatkan berbagai intervensi seperti bantuan sosial, pemberdayaan ekonomi, dan peningkatan akses pendidikan. Namun pelaksanaan di lapangan menunjukkan bahwa program-program tersebut belum terintegrasi secara optimal, sehingga dampaknya terhadap pengurangan kemiskinan masih terbatas.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan antar OPD untuk menyelaraskan program penanggulangan kemiskinan agar intervensi yang dilakukan dapat saling mendukung dan memberikan hasil yang lebih efektif",score:100},{label:"B",text:"Anda fokus menjalankan program di unit Anda sesuai dengan tugas yang telah ditetapkan tanpa melakukan penyesuaian dengan program OPD lain",score:80},{label:"C",text:"Anda menyusun kerangka kebijakan terpadu lintas sektor yang mengintegrasikan seluruh program penanggulangan kemiskinan dalam satu sistem yang berkelanjutan",score:120}]},
+        {number:43,title:"Sinkronisasi Data -- Program Kesehatan Daerah",situation:"Dalam pelaksanaan program kesehatan, ditemukan adanya perbedaan data antara puskesmas, dinas kesehatan, dan instansi lain, sehingga menyulitkan dalam penentuan kebijakan dan alokasi sumber daya.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan penyelarasan data antar unit kerja agar informasi yang digunakan menjadi lebih akurat dan dapat dijadikan dasar pengambilan keputusan bersama",score:100},{label:"B",text:"Anda menggunakan data yang tersedia di unit Anda sebagai dasar pelaksanaan program tanpa melakukan sinkronisasi dengan unit lain",score:80},{label:"C",text:"Anda menginisiasi pembangunan sistem data kesehatan terpadu berbasis digital yang memungkinkan integrasi dan pembaruan data secara berkelanjutan",score:120}]},
+        {number:44,title:"Pelayanan Terpadu -- Administrasi Kependudukan",situation:"Pelayanan administrasi kependudukan melibatkan beberapa tahapan yang dikelola oleh unit berbeda, namun masyarakat sering mengeluhkan lamanya proses pelayanan karena kurangnya koordinasi antar tahapan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan alur pelayanan antar unit agar setiap tahapan dapat berjalan lebih selaras dan waktu pelayanan dapat dipersingkat",score:100},{label:"B",text:"Anda memastikan pelayanan di unit Anda berjalan sesuai standar tanpa melakukan intervensi terhadap unit lain",score:80},{label:"C",text:"Anda merancang sistem pelayanan kependudukan terpadu berbasis digital yang mengintegrasikan seluruh tahapan pelayanan dalam satu sistem",score:120}]},
+        {number:45,title:"Pengambilan Keputusan -- Penentuan Lokasi Program Prioritas",situation:"Dalam penentuan lokasi program prioritas, terdapat perbedaan usulan dari berbagai OPD yang masing-masing memiliki kepentingan berbeda berdasarkan data dan sudut pandang masing-masing.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memfasilitasi koordinasi antar OPD untuk menyepakati lokasi prioritas berdasarkan data dan kebutuhan daerah secara bersama",score:100},{label:"B",text:"Anda menetapkan lokasi berdasarkan usulan dari unit Anda tanpa mempertimbangkan usulan dari OPD lain",score:80},{label:"C",text:"Anda menyusun kerangka penentuan prioritas berbasis analisis data spasial dan dampak jangka panjang yang dapat digunakan lintas OPD",score:120}]},
+        {number:46,title:"Koordinasi Implementasi -- Program Pendidikan Daerah",situation:"Program peningkatan kualitas pendidikan melibatkan dinas pendidikan, sekolah, dan pemerintah daerah, namun pelaksanaannya belum sinkron sehingga hasil yang dicapai belum optimal.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan pelaksanaan program antar pihak terkait agar kegiatan dapat berjalan lebih selaras dan memberikan hasil yang lebih baik",score:100},{label:"B",text:"Anda menjalankan program sesuai kewenangan unit Anda tanpa melakukan koordinasi tambahan dengan pihak lain",score:80},{label:"C",text:"Anda menginisiasi sistem pengelolaan pendidikan terpadu yang mengintegrasikan perencanaan, pelaksanaan, dan evaluasi lintas pihak",score:120}]},
+        {number:47,title:"Efisiensi Program -- Tumpang Tindih Kegiatan Pelatihan",situation:"Beberapa OPD menyelenggarakan pelatihan dengan tema yang serupa untuk masyarakat yang sama, sehingga terjadi tumpang tindih kegiatan dan pemborosan anggaran.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan antar OPD untuk menyelaraskan pelaksanaan pelatihan agar tidak terjadi duplikasi dan penggunaan anggaran menjadi lebih efisien",score:100},{label:"B",text:"Anda tetap melaksanakan pelatihan di unit Anda sesuai rencana tanpa mempertimbangkan kegiatan OPD lain",score:80},{label:"C",text:"Anda mengembangkan sistem perencanaan pelatihan terpadu lintas OPD yang dapat mengidentifikasi dan mengintegrasikan kebutuhan pelatihan secara menyeluruh",score:120}]},
+        {number:48,title:"Kolaborasi Lintas Sektor -- Pariwisata Daerah",situation:"Pengembangan sektor pariwisata melibatkan berbagai instansi seperti dinas pariwisata, perhubungan, dan UMKM, namun koordinasi yang belum optimal menyebabkan potensi daerah belum tergarap secara maksimal.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan program antar instansi untuk menyelaraskan pengembangan pariwisata agar hasilnya lebih optimal dan saling mendukung",score:100},{label:"B",text:"Anda fokus menjalankan program di instansi Anda tanpa melakukan kolaborasi dengan instansi lain",score:80},{label:"C",text:"Anda merancang model pengembangan pariwisata terpadu berbasis ekosistem lintas sektor yang berkelanjutan",score:120}]},
+        {number:49,title:"Pengawasan Lintas Unit -- Proyek Pengadaan Barang/Jasa",situation:"Pengawasan pengadaan barang dan jasa dilakukan oleh masing-masing unit tanpa adanya koordinasi yang jelas, sehingga berpotensi menimbulkan perbedaan standar pengawasan dan risiko ketidaksesuaian prosedur.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan pengawasan antar unit agar pelaksanaan pengadaan dapat berjalan sesuai standar yang sama",score:100},{label:"B",text:"Anda melakukan pengawasan hanya pada unit Anda sesuai dengan tugas yang diberikan",score:80},{label:"C",text:"Anda menginisiasi sistem pengawasan pengadaan berbasis risiko yang terintegrasi lintas unit untuk meningkatkan akuntabilitas",score:120}]},
+        {number:50,title:"Evaluasi Program -- Dampak Pembangunan Daerah",situation:"Evaluasi program pembangunan dilakukan secara parsial oleh masing-masing OPD sehingga sulit untuk melihat dampak program secara keseluruhan terhadap pembangunan daerah.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan evaluasi lintas OPD agar hasil evaluasi dapat memberikan gambaran yang lebih komprehensif terhadap dampak pembangunan",score:100},{label:"B",text:"Anda tetap melakukan evaluasi pada unit Anda masing-masing sesuai mekanisme yang ada",score:80},{label:"C",text:"Anda mengembangkan sistem evaluasi terpadu berbasis indikator pembangunan daerah yang terintegrasi lintas OPD",score:120}]}
+    ];
+        // ======================== SEKSI 2 - NARASI & SOAL (40 SOAL) ========================
+    const subsectionNarratives = [
+        {
+            title: "SEKSI 2 - Subseksi A",
+            subtitle: "Pengembangan Wilayah Terpadu",
+            narasi: `<strong>📋 PROFIL WILAYAH: KECAMATAN SUKAMAJU (PEMBANGUNAN WILAYAH & INFRASTRUKTUR)</strong><br><br>
+Kecamatan Sukamaju merupakan salah satu wilayah berkembang di kabupaten yang memiliki karakteristik campuran antara kawasan perkotaan dan perdesaan. Dalam lima tahun terakhir, wilayah ini mengalami pertumbuhan penduduk sebesar rata-rata 2,8% per tahun, didorong oleh urbanisasi dan perkembangan kawasan permukiman baru.<br><br>
+Struktur ekonomi Kecamatan Sukamaju didominasi oleh sektor perdagangan (35%), pertanian (25%), dan jasa (20%), sementara sisanya berasal dari sektor industri kecil dan lainnya. Meskipun terjadi pertumbuhan ekonomi, distribusi pembangunan antar desa masih belum merata.<br><br>
+Beberapa desa mengalami perkembangan pesat dengan infrastruktur yang cukup baik, sementara desa lain masih menghadapi keterbatasan akses jalan, air bersih, dan layanan publik dasar. Hal ini memicu ketimpangan pembangunan yang berdampak pada tingkat kesejahteraan masyarakat.<br><br>
+Selain itu, koordinasi antar perangkat daerah dalam pelaksanaan program pembangunan masih belum optimal. Program sering berjalan secara sektoral tanpa integrasi yang jelas, sehingga menimbulkan duplikasi kegiatan dan inefisiensi anggaran.<br><br>
+
+<strong>📊 DATA INFRASTRUKTUR & PEMBANGUNAN WILAYAH (2025)</strong><br>
+<div class="table-wrapper">
+<table class="data-table">
+<thead><tr><th>Desa</th><th>Jalan Layak (%)</th><th>Air Bersih (%)</th><th>Layanan Kesehatan (%)</th><th>Kepadatan Penduduk</th><th>Tingkat Keluhan</th></tr></thead>
+<tbody>
+<tr><td>Sukamaju Indah</td><td>85</td><td>80</td><td>78</td><td>Tinggi</td><td>Tinggi</td></tr>
+<tr><td>Mekar Sari</td><td>70</td><td>65</td><td>60</td><td>Sedang</td><td>Sedang</td></tr>
+<tr><td>Tani Jaya</td><td>55</td><td>50</td><td>48</td><td>Tinggi</td><td>Tinggi</td></tr>
+<tr><td>Harapan Makmur</td><td>90</td><td>88</td><td>85</td><td>Rendah</td><td>Rendah</td></tr>
+<tr><td>Karya Mandiri</td><td>60</td><td>55</td><td>52</td><td>Tinggi</td><td>Tinggi</td></tr>
+</tbody>
+</table>
+</div>
+
+<strong>📈 ANALISIS SINGKAT:</strong><br>
+• Desa dengan kepadatan tinggi cenderung memiliki keluhan tinggi<br>
+• Infrastruktur dasar belum merata<br>
+• Koordinasi program masih sektoral<br>
+• Potensi konflik prioritas pembangunan cukup tinggi<br>
+• Risiko inefisiensi anggaran akibat duplikasi program<br><br>
+
+<em>Gunakan narasi ini sebagai acuan untuk menjawab 10 soal di bawahnya.</em>`
+        },
+        {
+            title: "SEKSI 2 - Subseksi B",
+            subtitle: "Pengembangan UMKM & Ekonomi Lokal",
+            narasi: `<strong>📋 PROFIL WILAYAH: KECAMATAN SUKAMAJU (UMKM & EKONOMI LOKAL)</strong><br><br>
+Kecamatan Sukamaju merupakan salah satu pusat pertumbuhan ekonomi baru di wilayah kabupaten yang mengalami peningkatan aktivitas usaha mikro, kecil, dan menengah (UMKM) dalam beberapa tahun terakhir. Pertumbuhan UMKM didorong oleh meningkatnya jumlah penduduk usia produktif serta berkembangnya kawasan permukiman baru yang menciptakan permintaan terhadap berbagai jenis barang dan jasa.<br><br>
+Berdasarkan data Dinas Koperasi dan UKM tahun 2025, jumlah UMKM di Kecamatan Sukamaju mencapai 3.250 unit, yang tersebar di lima desa dengan karakteristik yang berbeda. Desa dengan kepadatan penduduk tinggi cenderung memiliki jumlah UMKM lebih banyak, namun menghadapi tantangan dalam hal persaingan usaha, keterbatasan akses permodalan, serta rendahnya kualitas manajemen usaha.<br><br>
+Permasalahan utama dalam pengembangan UMKM adalah belum terintegrasinya program pembinaan antar perangkat daerah. Program pelatihan, bantuan modal, dan fasilitasi pemasaran sering berjalan sendiri-sendiri tanpa sinergi yang jelas. Selain itu, digitalisasi UMKM masih relatif rendah, hanya sebagian kecil pelaku usaha yang memanfaatkan platform digital.<br><br>
+
+<strong>📊 DATA UMKM KECAMATAN SUKAMAJU (2025)</strong><br>
+<div class="table-wrapper">
+<table class="data-table">
+<thead><tr><th>Desa</th><th>Jumlah UMKM</th><th>Akses Permodalan (%)</th><th>Digitalisasi (%)</th><th>Akses Pasar (%)</th><th>Pertumbuhan UMKM (%)</th></tr></thead>
+<tbody>
+<tr><td>Sukamaju Indah</td><td>950</td><td>60</td><td>45</td><td>70</td><td>8</td></tr>
+<tr><td>Mekar Sari</td><td>700</td><td>50</td><td>35</td><td>60</td><td>7</td></tr>
+<tr><td>Tani Jaya</td><td>500</td><td>40</td><td>25</td><td>50</td><td>5</td></tr>
+<tr><td>Harapan Makmur</td><td>400</td><td>65</td><td>55</td><td>75</td><td>9</td></tr>
+<tr><td>Karya Mandiri</td><td>700</td><td>45</td><td>30</td><td>55</td><td>6</td></tr>
+</tbody>
+</table>
+</div>
+
+<strong>📈 ANALISIS SINGKAT:</strong><br>
+• Desa dengan jumlah UMKM tinggi belum tentu memiliki kualitas usaha yang baik<br>
+• Digitalisasi masih rendah di hampir semua desa<br>
+• Program pembinaan belum terintegrasi lintas sektor<br>
+• Potensi pengembangan ekonomi lokal cukup besar, namun belum dimanfaatkan optimal<br>
+• Risiko ketimpangan ekonomi antar desa semakin meningkat<br><br>
+
+<em>Gunakan narasi ini sebagai acuan untuk menjawab 10 soal di bawahnya.</em>`
+        },
+        {
+            title: "SEKSI 2 - Subseksi C",
+            subtitle: "Layanan Kesehatan & Kualitas SDM",
+            narasi: `<strong>📋 PROFIL LAYANAN KESEHATAN KECAMATAN SUKAMAJU (2025)</strong><br><br>
+Kecamatan Sukamaju merupakan wilayah dengan pertumbuhan penduduk yang cukup tinggi, yang berdampak langsung terhadap meningkatnya kebutuhan layanan kesehatan dasar. Dalam beberapa tahun terakhir, pemerintah daerah telah berupaya meningkatkan akses layanan kesehatan melalui pembangunan fasilitas kesehatan, penguatan tenaga medis, serta program promotif dan preventif.<br><br>
+Wilayah dengan kepadatan penduduk tinggi seperti Desa Sukamaju Indah dan Tani Jaya mengalami tekanan tinggi terhadap fasilitas kesehatan yang ada. Puskesmas sering mengalami overcapacity, sehingga waktu tunggu layanan menjadi panjang dan kualitas pelayanan menurun. Di sisi lain, desa dengan kepadatan rendah memiliki fasilitas yang relatif memadai, namun pemanfaatannya belum optimal.<br><br>
+Selain itu, distribusi tenaga kesehatan juga belum merata. Sebagian besar tenaga medis terkonsentrasi di wilayah yang lebih maju, sementara desa dengan kebutuhan tinggi justru mengalami kekurangan tenaga kesehatan.<br><br>
+
+<strong>📊 DATA LAYANAN KESEHATAN KECAMATAN SUKAMAJU (2025)</strong><br>
+<div class="table-wrapper">
+<table class="data-table">
+<thead><tr><th>Desa</th><th>Rasio Tenaga Kesehatan</th><th>Cakupan Layanan (%)</th><th>Waktu Tunggu (menit)</th><th>Cakupan Pemeriksaan (%)</th><th>Tingkat Keluhan</th></tr></thead>
+<tbody>
+<tr><td>Sukamaju Indah</td><td>1.2</td><td>75</td><td>60</td><td>55</td><td>Tinggi</td></tr>
+<tr><td>Mekar Sari</td><td>1.0</td><td>70</td><td>50</td><td>50</td><td>Sedang</td></tr>
+<tr><td>Tani Jaya</td><td>0.8</td><td>65</td><td>70</td><td>45</td><td>Tinggi</td></tr>
+<tr><td>Harapan Makmur</td><td>1.5</td><td>80</td><td>30</td><td>65</td><td>Rendah</td></tr>
+<tr><td>Karya Mandiri</td><td>0.9</td><td>68</td><td>55</td><td>48</td><td>Tinggi</td></tr>
+</tbody>
+</table>
+</div>
+
+<strong>📈 ANALISIS SINGKAT:</strong><br>
+• Wilayah padat → beban layanan tinggi & waktu tunggu lama<br>
+• Distribusi tenaga kesehatan tidak merata<br>
+• Cakupan pemeriksaan kesehatan masih rendah<br>
+• Program kesehatan masih fragmented (tidak terintegrasi)<br>
+• Potensi peningkatan kualitas SDM cukup besar jika layanan diperbaiki<br><br>
+
+<em>Gunakan narasi ini sebagai acuan untuk menjawab 10 soal di bawahnya.</em>`
+        },
+        {
+            title: "SEKSI 2 - Subseksi D",
+            subtitle: "Pendidikan & Kualitas Sumber Daya Manusia",
+            narasi: `<strong>📋 PROFIL PENDIDIKAN KECAMATAN SUKAMAJU (2025)</strong><br><br>
+Kecamatan Sukamaju memiliki tantangan besar dalam peningkatan kualitas sumber daya manusia, khususnya di sektor pendidikan. Dalam lima tahun terakhir, pemerintah daerah telah melakukan berbagai upaya untuk meningkatkan akses dan mutu pendidikan, seperti pembangunan sarana sekolah, peningkatan kompetensi guru, serta program bantuan pendidikan bagi siswa dari keluarga kurang mampu.<br><br>
+Wilayah dengan kepadatan penduduk tinggi seperti Desa Sukamaju Indah dan Tani Jaya mengalami tekanan tinggi terhadap fasilitas pendidikan, yang ditandai dengan rasio siswa terhadap guru yang tinggi, keterbatasan ruang kelas, serta menurunnya kualitas pembelajaran.<br><br>
+Distribusi tenaga pendidik belum merata. Guru dengan kualifikasi tinggi cenderung terkonsentrasi di sekolah yang berada di wilayah yang lebih maju, sementara sekolah di desa dengan kebutuhan tinggi justru kekurangan tenaga pendidik yang kompeten.<br><br>
+
+<strong>📊 DATA PENDIDIKAN KECAMATAN SUKAMAJU (2025)</strong><br>
+<div class="table-wrapper">
+<table class="data-table">
+<thead><tr><th>Desa</th><th>Rasio Siswa/Guru</th><th>Ketersediaan Kelas (%)</th><th>Partisipasi Sekolah (%)</th><th>Akses Digital (%)</th><th>Tingkat Keluhan</th></tr></thead>
+<tbody>
+<tr><td>Sukamaju Indah</td><td>35:1</td><td>70</td><td>85</td><td>60</td><td>Tinggi</td></tr>
+<tr><td>Mekar Sari</td><td>30:1</td><td>75</td><td>80</td><td>50</td><td>Sedang</td></tr>
+<tr><td>Tani Jaya</td><td>38:1</td><td>65</td><td>78</td><td>40</td><td>Tinggi</td></tr>
+<tr><td>Harapan Makmur</td><td>25:1</td><td>85</td><td>75</td><td>65</td><td>Rendah</td></tr>
+<tr><td>Karya Mandiri</td><td>32:1</td><td>72</td><td>82</td><td>45</td><td>Tinggi</td></tr>
+</tbody>
+</table>
+</div>
+
+<strong>📈 ANALISIS SINGKAT:</strong><br>
+• Desa padat → rasio siswa tinggi & kualitas belajar menurun<br>
+• Distribusi guru tidak merata<br>
+• Akses digital belum merata → risiko gap pendidikan<br>
+• Program pendidikan masih terfragmentasi<br>
+• Potensi peningkatan kualitas SDM besar jika intervensi tepat<br><br>
+
+<em>Gunakan narasi ini sebagai acuan untuk menjawab 10 soal di bawahnya.</em>`
+        }
+    ];
+
+    // Soal Seksi 2 (51-90)
+    const section2QuestionsData = [
+        // Subseksi A (51-60)
+        {number:51,title:"Prioritas Pembangunan Berbasis Wilayah",situation:"Berdasarkan kondisi umum Kecamatan Sukamaju, Anda diminta menyusun prioritas pembangunan yang mampu mengurangi ketimpangan antar desa secara efektif dan berkelanjutan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan penyusunan prioritas pembangunan lintas perangkat daerah dengan mempertimbangkan kebutuhan wilayah dan keselarasan program agar pembangunan lebih merata",score:100},{label:"B",text:"Anda fokus memastikan program di unit Anda berjalan optimal tanpa melakukan penyesuaian terhadap kebutuhan wilayah lain",score:80},{label:"C",text:"Anda merancang kebijakan pembangunan berbasis zonasi dan sistem perencanaan terpadu lintas sektor yang mampu mengatasi ketimpangan secara jangka panjang",score:120}]},
+        {number:52,title:"Integrasi Program Pembangunan",situation:"Program pembangunan di Kecamatan Sukamaju masih berjalan secara sektoral sehingga kurang optimal dalam memberikan dampak.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan integrasi program antar perangkat daerah agar kegiatan yang dilaksanakan dapat saling mendukung",score:100},{label:"B",text:"Anda menjalankan program sesuai dengan rencana unit kerja tanpa melakukan integrasi dengan program lain",score:80},{label:"C",text:"Anda menyusun sistem perencanaan pembangunan terpadu berbasis teknologi yang mengintegrasikan seluruh program lintas sektor",score:120}]},
+        {number:53,title:"Analisis Data Prioritas Desa",situation:"Berdasarkan data pada tabel, Desa Tani Jaya memiliki nilai terendah pada hampir seluruh indikator serta kepadatan dan keluhan yang tinggi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memprioritaskan Desa Tani Jaya karena memiliki nilai terendah pada hampir seluruh indikator serta kepadatan dan keluhan yang tinggi sehingga membutuhkan intervensi lintas sektor secara terkoordinasi",score:100},{label:"B",text:"Anda memprioritaskan Desa Sukamaju Indah karena memiliki tingkat keluhan tinggi meskipun infrastrukturnya relatif baik",score:80},{label:"C",text:"Anda menyusun model prioritas berbasis indeks komposit yang menggabungkan seluruh indikator untuk menentukan intervensi strategis jangka panjang",score:120}]},
+        {number:54,title:"Pelayanan Publik Wilayah Padat",situation:"Keluhan pelayanan publik lebih tinggi di wilayah padat penduduk.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan peningkatan kapasitas layanan di wilayah padat melalui penyesuaian distribusi sumber daya antar unit",score:100},{label:"B",text:"Anda tetap menjalankan pelayanan sesuai kapasitas yang ada tanpa melakukan penyesuaian",score:80},{label:"C",text:"Anda merancang sistem layanan adaptif berbasis data kepadatan penduduk untuk meningkatkan kualitas layanan secara berkelanjutan",score:120}]},
+        {number:55,title:"Koordinasi Lintas Sektor",situation:"Program pembangunan yang dilaksanakan oleh berbagai perangkat daerah masih berjalan secara sektoral dan kurang terintegrasi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan penyelarasan program antar perangkat daerah dengan memastikan adanya komunikasi rutin dan kesepakatan bersama agar pelaksanaan program menjadi lebih terintegrasi dan merata",score:100},{label:"B",text:"Anda tetap menjalankan program sesuai dengan rencana unit kerja masing-masing tanpa melakukan penyesuaian terhadap program dari perangkat daerah lain",score:80},{label:"C",text:"Anda merancang sistem perencanaan pembangunan terpadu berbasis data lintas sektor yang memungkinkan integrasi program secara menyeluruh dan berkelanjutan",score:120}]},
+        {number:56,title:"Efisiensi Anggaran",situation:"Ditemukan adanya indikasi duplikasi kegiatan antar perangkat daerah yang berpotensi menyebabkan inefisiensi penggunaan anggaran.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan identifikasi dan penyesuaian program antar perangkat daerah agar duplikasi kegiatan dapat dikurangi dan anggaran digunakan secara lebih efisien",score:100},{label:"B",text:"Anda tetap melaksanakan program di unit Anda sesuai rencana tanpa mempertimbangkan kemungkinan adanya duplikasi dengan program lain",score:80},{label:"C",text:"Anda mengembangkan sistem perencanaan dan penganggaran terpadu lintas sektor yang mampu mendeteksi dan mencegah duplikasi program secara sistemik",score:120}]},
+        {number:57,title:"Konflik Prioritas Wilayah",situation:"Dalam forum perencanaan pembangunan kecamatan, muncul perbedaan pendapat antar perangkat daerah terkait prioritas pembangunan desa.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memfasilitasi diskusi dan koordinasi antar perangkat daerah untuk mencapai kesepakatan prioritas berdasarkan kebutuhan wilayah dan keselarasan program",score:100},{label:"B",text:"Anda menetapkan prioritas berdasarkan kepentingan program di unit Anda tanpa mempertimbangkan masukan dari perangkat daerah lain",score:80},{label:"C",text:"Anda menyusun kerangka penetapan prioritas berbasis analisis data komprehensif dan dampak jangka panjang yang dapat digunakan sebagai acuan bersama lintas sektor",score:120}]},
+        {number:58,title:"Ketimpangan Antar Desa",situation:"Terlihat adanya ketimpangan pembangunan antar desa yang berpotensi menimbulkan kesenjangan sosial yang lebih luas.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan penyusunan program pembangunan antar perangkat daerah dengan fokus pada desa tertinggal agar ketimpangan dapat dikurangi secara bertahap",score:100},{label:"B",text:"Anda tetap melaksanakan program pembangunan sesuai rencana yang telah ditetapkan tanpa melakukan penyesuaian terhadap kondisi ketimpangan antar desa",score:80},{label:"C",text:"Anda merancang strategi pengembangan wilayah berbasis zonasi dan sistem pembangunan terpadu lintas sektor untuk mengatasi ketimpangan secara berkelanjutan",score:120}]},
+        {number:59,title:"Fragmentasi Pengendalian",situation:"Pengawasan terhadap pelaksanaan program masih dilakukan secara parsial oleh masing-masing perangkat daerah tanpa adanya koordinasi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan pengawasan lintas perangkat daerah agar standar pengendalian menjadi lebih seragam dan pelaksanaan program dapat dipantau secara menyeluruh",score:100},{label:"B",text:"Anda tetap melakukan pengawasan pada unit Anda masing-masing sesuai dengan mekanisme yang ada",score:80},{label:"C",text:"Anda menginisiasi sistem pengawasan terpadu berbasis risiko yang terintegrasi lintas sektor untuk meningkatkan akuntabilitas program",score:120}]},
+        {number:60,title:"Evaluasi Dampak Lintas Sektor",situation:"Evaluasi program pembangunan selama ini dilakukan secara terpisah oleh masing-masing perangkat daerah, sehingga sulit untuk melihat dampak program secara keseluruhan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan evaluasi lintas perangkat daerah agar hasil evaluasi dapat memberikan gambaran yang lebih komprehensif terhadap dampak pembangunan",score:100},{label:"B",text:"Anda tetap melakukan evaluasi pada unit Anda masing-masing sesuai dengan prosedur yang berlaku",score:80},{label:"C",text:"Anda mengembangkan sistem evaluasi pembangunan terpadu berbasis indikator kinerja wilayah yang terintegrasi lintas sektor",score:120}]},
+        // Subseksi B (61-70)
+        {number:61,title:"Sosial Kultural & Perekat Bangsa",situation:"Terjadi ketegangan antara masyarakat lokal dan pendatang terkait kesempatan kerja di Kampung Nelayan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memilih untuk tidak terlibat secara langsung agar situasi tidak semakin memanas",score:80},{label:"B",text:"Anda menjaga sikap netral tanpa melakukan intervensi terhadap dinamika yang terjadi di masyarakat",score:100},{label:"C",text:"Anda berupaya memfasilitasi komunikasi antara kedua pihak agar tercipta pemahaman dan mencegah konflik berkembang lebih lanjut",score:120}]},
+        {number:62,title:"Pelayanan Publik",situation:"Masyarakat mengeluhkan lamanya pelayanan akibat meningkatnya jumlah pemohon di Kampung Nelayan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap menjalankan prosedur tanpa penyesuaian agar sesuai dengan ketentuan yang berlaku",score:80},{label:"B",text:"Anda menjelaskan prosedur kepada masyarakat agar memahami kondisi yang terjadi",score:100},{label:"C",text:"Anda menyesuaikan cara komunikasi serta memastikan masyarakat memahami proses sambil tetap menjaga kualitas pelayanan",score:120}]},
+        {number:63,title:"Pelayanan Publik & Integritas",situation:"Seorang pelaku UMKM di kampung nelayan mengajukan bantuan permodalan namun izin usaha belum lengkap.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap memproses pengajuan tersebut dengan mempertimbangkan kondisi usaha yang sedang membutuhkan dukungan",score:80},{label:"B",text:"Anda menunda proses pengajuan hingga seluruh persyaratan administrasi dipenuhi sesuai ketentuan",score:100},{label:"C",text:"Anda memastikan bahwa seluruh persyaratan dipenuhi sebelum diproses serta memberikan penjelasan yang jelas kepada pemohon mengenai pentingnya legalitas usaha",score:120}]},
+        {number:64,title:"Komunikasi",situation:"Dalam sosialisasi program digitalisasi pemasaran UMKM, sebagian peserta kurang minat dan kesulitan memahami materi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap melanjutkan penyampaian materi sesuai rencana karena kegiatan harus selesai sesuai jadwal",score:80},{label:"B",text:"Anda mencoba menyederhanakan penjelasan agar lebih mudah dipahami oleh peserta",score:100},{label:"C",text:"Anda menyesuaikan metode penyampaian, menggunakan contoh konkret, serta mendorong interaksi aktif agar peserta benar-benar memahami manfaat program",score:120}]},
+        {number:65,title:"Kerja Sama",situation:"Terdapat perbedaan pendekatan antara dinas koperasi dan dinas perizinan terkait mekanisme pendampingan usaha.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menjalankan tugas sesuai arahan unit kerja Anda tanpa terlibat dalam perbedaan tersebut",score:80},{label:"B",text:"Anda mengikuti hasil keputusan rapat koordinasi meskipun belum sepenuhnya memahami latar belakang perbedaan tersebut",score:100},{label:"C",text:"Anda berupaya memahami perspektif masing-masing pihak dan mendorong terciptanya kesepahaman dalam pelaksanaan program",score:120}]},
+        {number:66,title:"Orientasi Pelayanan",situation:"Seorang pelaku UMKM mengeluhkan proses pengurusan izin usaha yang dianggap berbelit dan memakan waktu lama.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menyampaikan bahwa proses tersebut memang harus dilalui sesuai ketentuan tanpa memberikan solusi tambahan",score:80},{label:"B",text:"Anda menjelaskan tahapan yang harus dilalui dalam proses perizinan tersebut agar pemohon memahami prosedur yang berlaku",score:100},{label:"C",text:"Anda menjelaskan proses sekaligus membantu mengarahkan langkah yang dapat mempercepat penyelesaian izin usaha tersebut",score:120}]},
+        {number:67,title:"Pengambilan Keputusan",situation:"Anda diminta menentukan prioritas peserta pelatihan UMKM dari sejumlah pendaftar yang memiliki latar belakang usaha yang berbeda.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menetapkan peserta secara cepat berdasarkan urutan pendaftaran untuk menghindari keterlambatan pelaksanaan program",score:80},{label:"B",text:"Anda mempertimbangkan beberapa kriteria dasar yang tersedia dalam menentukan peserta pelatihan",score:100},{label:"C",text:"Anda melakukan analisis kebutuhan pelatihan dan dampaknya sebelum menetapkan prioritas peserta",score:120}]},
+        {number:68,title:"Integritas",situation:"Dalam proses seleksi bantuan UMKM, Anda menemukan adanya rekomendasi dari pihak tertentu yang meminta agar salah satu pelaku usaha diprioritaskan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mempertimbangkan rekomendasi tersebut sebagai bagian dari masukan dalam proses seleksi",score:80},{label:"B",text:"Anda tetap mengikuti prosedur seleksi yang berlaku tanpa memperhatikan rekomendasi tersebut",score:100},{label:"C",text:"Anda memastikan proses seleksi berjalan objektif serta menjaga transparansi untuk menghindari potensi konflik kepentingan",score:120}]},
+        {number:69,title:"Pengembangan Diri",situation:"Sebagian rekan kerja mengalami kesulitan dalam memahami sistem pelaporan digital UMKM yang baru diterapkan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda fokus menyelesaikan pekerjaan Anda sendiri tanpa terlibat dalam kesulitan rekan kerja",score:80},{label:"B",text:"Anda membantu rekan kerja apabila diminta dalam memahami sistem tersebut",score:100},{label:"C",text:"Anda secara aktif membantu dan berbagi pengetahuan agar tim dapat beradaptasi dengan sistem baru",score:120}]},
+        {number:70,title:"Pengelolaan Perubahan",situation:"Program digitalisasi UMKM mendapat resistensi dari sebagian pelaku usaha yang merasa nyaman dengan cara konvensional.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap menjalankan program sesuai rencana tanpa memperhatikan resistensi yang muncul",score:80},{label:"B",text:"Anda mencoba menjelaskan manfaat program kepada pelaku usaha secara umum",score:100},{label:"C",text:"Anda melakukan pendekatan bertahap dan menyesuaikan strategi implementasi dengan kondisi pelaku usaha",score:120}]},
+        // Subseksi C (71-80)
+        {number:71,title:"Pelayanan Publik & Integritas",situation:"Dalam penyaluran pupuk bersubsidi, terdapat permintaan dari kelompok tani untuk alokasi tambahan di luar kuota.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mempertimbangkan permintaan tersebut dengan menyesuaikan alokasi secara terbatas",score:80},{label:"B",text:"Anda tetap mengacu pada ketentuan yang berlaku terkait distribusi pupuk bersubsidi",score:100},{label:"C",text:"Anda memastikan distribusi tetap sesuai ketentuan serta memberikan penjelasan secara transparan mengenai pentingnya keadilan distribusi",score:120}]},
+        {number:72,title:"Komunikasi",situation:"Dalam sosialisasi program digitalisasi pertanian, Anda menghadapi kelompok petani yang cenderung skeptis dan kurang memahami manfaat teknologi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap menyampaikan materi sesuai rencana tanpa menyesuaikan pendekatan komunikasi",score:80},{label:"B",text:"Anda mencoba menjelaskan dengan bahasa yang lebih sederhana agar dapat dipahami oleh peserta",score:100},{label:"C",text:"Anda menyesuaikan metode komunikasi, memberikan contoh konkret, serta memastikan pemahaman peserta melalui interaksi aktif",score:120}]},
+        {number:73,title:"Kerja Sama",situation:"Terdapat perbedaan pandangan antara dinas pertanian dan koperasi terkait mekanisme distribusi hasil panen.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda fokus menjalankan tugas dari unit Anda sendiri tanpa terlibat dalam dinamika lintas instansi",score:80},{label:"B",text:"Anda mengikuti hasil keputusan rapat tanpa banyak memberikan kontribusi terhadap penyelesaian perbedaan tersebut",score:100},{label:"C",text:"Anda berupaya memfasilitasi komunikasi antar pihak untuk mencapai kesepahaman bersama",score:120}]},
+        {number:74,title:"Orientasi Pelayanan",situation:"Seorang petani mengeluhkan lambatnya proses administrasi bantuan alat pertanian yang diajukan beberapa waktu lalu.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menyampaikan bahwa proses membutuhkan waktu sesuai prosedur tanpa memberikan penjelasan lebih lanjut",score:80},{label:"B",text:"Anda menjelaskan tahapan proses yang sedang berjalan kepada petani tersebut",score:100},{label:"C",text:"Anda menjelaskan proses serta membantu menelusuri kendala agar pelayanan dapat lebih cepat diselesaikan",score:120}]},
+        {number:75,title:"Pengambilan Keputusan",situation:"Anda diminta menentukan prioritas desa penerima program bantuan alat pertanian dengan data yang belum sepenuhnya lengkap.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda segera menetapkan prioritas berdasarkan data yang tersedia tanpa mempertimbangkan kemungkinan bias",score:80},{label:"B",text:"Anda menggunakan data yang ada dengan tetap berhati-hati dalam mengambil keputusan",score:100},{label:"C",text:"Anda berupaya melengkapi informasi yang diperlukan sebelum menetapkan keputusan yang berdampak luas",score:120}]},
+        {number:76,title:"Integritas",situation:"Dalam proses verifikasi bantuan, Anda menemukan indikasi bahwa data yang diajukan oleh salah satu kelompok tani tidak sepenuhnya akurat.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap melanjutkan proses karena data tersebut telah disetujui sebelumnya oleh pihak lain",score:80},{label:"B",text:"Anda melakukan pengecekan ulang terhadap data tersebut sebelum melanjutkan proses",score:100},{label:"C",text:"Anda memastikan keakuratan data serta mengklarifikasi kepada pihak terkait untuk mencegah kesalahan distribusi bantuan",score:120}]},
+        {number:77,title:"Pengembangan Diri",situation:"Sebagian rekan kerja mengalami kesulitan dalam memahami sistem digitalisasi pertanian yang baru diterapkan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda fokus mempelajari sistem tersebut untuk kepentingan pekerjaan Anda sendiri",score:80},{label:"B",text:"Anda membantu rekan kerja jika diminta",score:100},{label:"C",text:"Anda proaktif berbagi pengetahuan dan membantu meningkatkan pemahaman tim",score:120}]},
+        {number:78,title:"Sosial Kultural",situation:"Terdapat perbedaan pendekatan antara kelompok petani lokal dan pendatang terkait metode pertanian.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tidak terlibat dalam perbedaan tersebut karena dianggap bukan bagian dari tugas utama",score:80},{label:"B",text:"Anda bersikap netral dan mengikuti kondisi yang ada",score:100},{label:"C",text:"Anda mendorong dialog untuk mencari solusi yang dapat diterima semua pihak",score:120}]},
+        {number:79,title:"Pengelolaan Perubahan",situation:"Program modernisasi pertanian mendapat resistensi dari sebagian petani senior.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap menjalankan program tanpa mempertimbangkan resistensi yang muncul",score:80},{label:"B",text:"Anda mencoba menjelaskan manfaat program secara umum",score:100},{label:"C",text:"Anda melakukan pendekatan bertahap dengan mempertimbangkan kondisi sosial dan kesiapan masyarakat",score:120}]},
+        {number:80,title:"Pengambilan Keputusan",situation:"Terjadi keterlambatan distribusi bantuan akibat kendala logistik di wilayah tertentu.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menunggu proses distribusi berjalan sesuai mekanisme tanpa intervensi tambahan",score:80},{label:"B",text:"Anda memantau perkembangan distribusi dan melaporkan kondisi yang terjadi",score:100},{label:"C",text:"Anda berkoordinasi dengan pihak terkait untuk mencari solusi percepatan distribusi",score:120}]},
+        // Subseksi D (81-90)
+        {number:81,title:"Pendampingan Digital",situation:"Sebagian pelaku usaha tradisional belum memanfaatkan platform digital karena keterbatasan pemahaman dan kebiasaan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda merancang sistem digitalisasi usaha desa secara menyeluruh berbasis platform terintegrasi",score:120},{label:"B",text:"Anda melakukan pendampingan langsung dan sederhana agar pelaku usaha mulai memahami penggunaan platform digital secara bertahap",score:100},{label:"C",text:"Anda membiarkan pelaku usaha beradaptasi sendiri dengan perkembangan digital",score:80}]},
+        {number:82,title:"Pemanfaatan Koperasi dalam Digital",situation:"Koperasi desa belum memanfaatkan teknologi digital untuk mendukung pemasaran produk anggotanya.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap menjalankan kegiatan koperasi secara manual tanpa perubahan",score:80},{label:"B",text:"Anda mengoordinasikan pemanfaatan teknologi sederhana dalam koperasi untuk membantu pemasaran produk anggota",score:100},{label:"C",text:"Anda menyusun sistem digitalisasi koperasi berbasis platform terintegrasi skala luas",score:120}]},
+        {number:83,title:"Meningkatkan Kepercayaan Digital",situation:"Sebagian masyarakat masih ragu menggunakan platform digital karena kekhawatiran terhadap keamanan transaksi.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tidak melakukan intervensi karena penggunaan teknologi bersifat pilihan",score:80},{label:"B",text:"Anda memberikan pemahaman dan contoh penggunaan transaksi digital yang aman agar kepercayaan masyarakat meningkat",score:100},{label:"C",text:"Anda merancang sistem keamanan transaksi digital berbasis kebijakan teknologi secara komprehensif",score:120}]},
+        {number:84,title:"Pemanfaatan Internet Terbatas",situation:"Akses internet di beberapa wilayah desa masih belum stabil sehingga menghambat pemanfaatan teknologi digital.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap mendorong penggunaan digital tanpa mempertimbangkan kondisi jaringan",score:80},{label:"B",text:"Anda menyesuaikan pendekatan penggunaan teknologi dengan kondisi jaringan yang ada agar tetap dapat dimanfaatkan secara optimal",score:100},{label:"C",text:"Anda merancang pengembangan infrastruktur digital desa berbasis sistem jaringan terintegrasi",score:120}]},
+        {number:85,title:"Koordinasi Program Digitalisasi",situation:"Program digitalisasi dari berbagai pihak berjalan tanpa koordinasi yang jelas sehingga hasilnya belum optimal.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda menyusun kerangka kebijakan digitalisasi desa secara menyeluruh untuk jangka panjang",score:120},{label:"B",text:"Anda tetap menjalankan program sesuai unit masing-masing tanpa koordinasi tambahan",score:80},{label:"C",text:"Anda melakukan koordinasi antar pihak di lapangan agar pelaksanaan program dapat saling mendukung",score:100}]},
+        {number:86,title:"Pendekatan Bertahap",situation:"Sebagian pelaku usaha mengalami kesulitan dalam menggunakan teknologi digital karena keterbatasan keterampilan dasar.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda memberikan pendampingan bertahap sesuai kemampuan pelaku usaha agar proses adaptasi berjalan lebih mudah",score:100},{label:"B",text:"Anda langsung mendorong penggunaan platform digital secara penuh tanpa tahapan",score:80},{label:"C",text:"Anda merancang program pelatihan digital terstruktur skala besar untuk seluruh pelaku usaha",score:120}]},
+        {number:87,title:"Pelibatan Generasi Muda",situation:"Sebagian generasi muda sudah mulai menggunakan platform digital, namun belum terlibat dalam membantu pelaku usaha lain.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda mengoordinasikan pelibatan generasi muda untuk membantu pelaku usaha lain dalam pemanfaatan teknologi digital",score:100},{label:"B",text:"Anda membiarkan pelaku usaha berkembang masing-masing tanpa kolaborasi",score:80},{label:"C",text:"Anda menyusun sistem inkubasi bisnis digital desa berbasis ekosistem terintegrasi",score:120}]},
+        {number:88,title:"Penyesuaian Strategi Digital",situation:"Tidak semua pelaku usaha memiliki akses dan kemampuan yang sama dalam menggunakan teknologi digital.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda tetap menerapkan strategi digital yang sama untuk seluruh pelaku usaha",score:80},{label:"B",text:"Anda menyesuaikan pendekatan digital dengan kondisi masing-masing pelaku usaha agar lebih efektif",score:100},{label:"C",text:"Anda merancang model transformasi digital berbasis segmentasi usaha secara komprehensif",score:120}]},
+        {number:89,title:"Analisis Data Digitalisasi",situation:"Berdasarkan data, tingkat pelaku usaha yang telah terhubung dengan marketplace masih sekitar 30%, sementara literasi digital dan tingkat kepercayaan masyarakat terhadap transaksi digital juga masih tergolong rendah.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda langsung mendorong seluruh pelaku usaha untuk masuk ke marketplace agar adopsi digital meningkat secara cepat",score:80},{label:"B",text:"Anda melakukan pendampingan dan peningkatan pemahaman secara bertahap agar pelaku usaha siap memanfaatkan marketplace secara optimal",score:100},{label:"C",text:"Anda menyusun sistem integrasi marketplace desa berbasis platform digital terpusat",score:120}]},
+        {number:90,title:"Koordinasi Pengembangan Digital",situation:"Pelaksanaan program digitalisasi belum memberikan hasil optimal karena kurangnya koordinasi antar pihak di lapangan.\nApa yang Anda lakukan?",options:[{label:"A",text:"Anda melakukan koordinasi dengan pihak terkait agar pelaksanaan program digital dapat berjalan lebih sinergis",score:100},{label:"B",text:"Anda menyusun kebijakan besar pengembangan ekonomi digital desa secara menyeluruh",score:120},{label:"C",text:"Anda tetap menjalankan program masing-masing tanpa koordinasi tambahan",score:80}]}
+    ];
+
+    // Gabungkan semua soal
+    let allQuestionsData = [...section1Questions, ...section2QuestionsData];
+
+    // State variables
+    let currentSection = 1;
+    let currentSubsection = 0;
+    let currentIndex = 0;
+    let userAnswers = new Array(90).fill(null);
+    let pesertaName = "";
+    let timerInterval = null;
+    let timeLeft = 120 * 60;
+
+    function getCurrentQuestions() {
+        if (currentSection === 1) {
+            return section1Questions;
+        } else {
+            let start = 50 + (currentSubsection * 10);
+            let end = start + 10;
+            return allQuestionsData.slice(start, end);
+        }
+    }
+
+    function getCurrentAnswers() {
+        if (currentSection === 1) {
+            return userAnswers.slice(0, 50);
+        } else {
+            let start = 50 + (currentSubsection * 10);
+            return userAnswers.slice(start, start + 10);
+        }
+    }
+
+    function setAnswer(globalIndex, value) {
+        userAnswers[globalIndex] = value;
+    }
+
+    function getGlobalIndex() {
+        if (currentSection === 1) {
+            return currentIndex;
+        } else {
+            return 50 + (currentSubsection * 10) + currentIndex;
+        }
+    }
+
+    function login() {
+        const nama = document.getElementById('namaPeserta').value.trim();
+        const password = document.getElementById('password').value;
+        if (nama === "") { alert("Please enter your full name!"); return; }
+        if (password !== "Akululus2026") { alert("Invalid access code!"); return; }
+        pesertaName = nama;
+        document.getElementById('userDisplay').innerHTML = `👤 ${pesertaName} | MANSOSKUL Assessment Level 4`;
+        document.getElementById('loginPanel').style.display = 'none';
+        document.getElementById('examContainer').style.display = 'block';
+        
+        currentSection = 1;
+        currentSubsection = 0;
+        currentIndex = 0;
+        updateNarrative();
+        startTimer();
+        renderQuestionGrid();
+        renderCurrentQuestion();
+    }
+
+    function updateNarrative() {
+        const narrativePanel = document.getElementById('narrativePanel');
+        if (currentSection === 1) {
+            narrativePanel.innerHTML = `
+                <div class="narrative-card">
+                    <span class="section-badge">SEKSI 1 - LEVEL 4</span>
+                    <h3>📋 General Competency Context</h3>
+                    <p>Seksi 1 terdiri dari 50 soal yang menguji kemampuan koordinasi tim, pelayanan publik, pengelolaan program, komunikasi internal, pengambilan keputusan, kerja sama tim, pengawasan pelaksanaan, pengelolaan sumber daya, implementasi kebijakan, serta koordinasi lintas OPD pada level 4 (kompetensi strategis).</p>
+                    <p style="margin-top: 10px;"><strong>Total Soal: 50</strong> | Waktu: 120 menit keseluruhan</p>
+                </div>
+            `;
+            document.getElementById('sectionInfo').innerHTML = 'SEKSI 1 - General Competency Level 4';
+            document.getElementById('nextSubsectionBtn').style.display = 'none';
+        } else {
+            const sub = subsectionNarratives[currentSubsection];
+            narrativePanel.innerHTML = `
+                <div class="narrative-card">
+                    <span class="section-badge">${sub.title}</span>
+                    <h3>📋 ${sub.subtitle}</h3>
+                    <div style="white-space: pre-line; line-height: 1.7;">${sub.narasi}</div>
+                    <p style="margin-top: 15px; font-style: italic; color:#8a7a60; border-top: 1px solid #e8dcc8; padding-top: 10px;">Gunakan narasi ini sebagai acuan untuk menjawab 10 soal di bawahnya.</p>
+                </div>
+            `;
+            document.getElementById('sectionInfo').innerHTML = `${sub.title}`;
+            
+            const nextBtn = document.getElementById('nextSubsectionBtn');
+            if (currentSubsection < 3) {
+                nextBtn.style.display = 'block';
+                nextBtn.innerHTML = '▶ Lanjut ke Subseksi ' + (currentSubsection + 2);
+            } else {
+                nextBtn.style.display = 'block';
+                nextBtn.innerHTML = '✓ Selesai Seksi 2 & Submit';
+            }
+        }
+    }
+
+    function goToNextSubsection() {
+        if (currentSubsection < 3) {
+            currentSubsection++;
+            currentIndex = 0;
+            updateNarrative();
+            renderQuestionGrid();
+            renderCurrentQuestion();
+        } else {
+            confirmSubmit();
+        }
+    }
+
+    function startSection2() {
+        document.getElementById('sectionTransition').style.display = 'none';
+        document.getElementById('examContainer').style.display = 'block';
+        currentSection = 2;
+        currentSubsection = 0;
+        currentIndex = 0;
+        updateNarrative();
+        renderQuestionGrid();
+        renderCurrentQuestion();
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Time is up! Submitting automatically.");
+                submitExam();
+            } else {
+                timeLeft--;
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        let m = Math.floor(timeLeft / 60);
+        let s = timeLeft % 60;
+        let timerElem = document.getElementById('timer');
+        timerElem.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        if (timeLeft <= 300) timerElem.classList.add('warning');
+    }
+
+    function renderQuestionGrid() {
+        let grid = document.getElementById('questionGrid');
+        let questions = getCurrentQuestions();
+        let answers = getCurrentAnswers();
+        grid.innerHTML = '';
+        questions.forEach((q, idx) => {
+            let btn = document.createElement('button');
+            btn.className = 'nav-btn';
+            if (answers[idx] !== null) btn.classList.add('answered');
+            if (idx === currentIndex) btn.classList.add('current');
+            btn.textContent = q.number;
+            btn.onclick = () => goToQuestion(idx);
+            grid.appendChild(btn);
+        });
+    }
+
+    function renderCurrentQuestion() {
+        let questions = getCurrentQuestions();
+        let q = questions[currentIndex];
+        let answers = getCurrentAnswers();
+        document.getElementById('questionTitle').innerHTML = `Soal ${q.number} - ${q.title}`;
+        document.getElementById('situationText').innerHTML = q.situation.replace(/\n/g, '<br>');
+        
+        let optsDiv = document.getElementById('optionsContainer');
+        optsDiv.innerHTML = '';
+        q.options.forEach(opt => {
+            let optDiv = document.createElement('div');
+            optDiv.className = 'option';
+            if (answers[currentIndex] === opt.label) optDiv.classList.add('selected');
+            optDiv.innerHTML = `<div class="option-letter">${opt.label}</div><div class="option-text">${opt.text}</div>`;
+            optDiv.onclick = () => selectAnswer(opt.label);
+            optsDiv.appendChild(optDiv);
+        });
+        renderQuestionGrid();
+    }
+
+    function selectAnswer(label) {
+        let globalIndex = getGlobalIndex();
+        setAnswer(globalIndex, label);
+        renderCurrentQuestion();
+    }
+
+    function goToQuestion(idx) {
+        currentIndex = idx;
+        renderCurrentQuestion();
+    }
+
+    function nextQuestion() {
+        let questions = getCurrentQuestions();
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            renderCurrentQuestion();
+        } else {
+            if (currentSection === 1) {
+                if (confirm("Anda telah menyelesaikan Seksi 1 (50 soal). Lanjut ke Seksi 2?")) {
+                    document.getElementById('examContainer').style.display = 'none';
+                    document.getElementById('sectionTransition').style.display = 'flex';
+                }
+            } else if (currentSubsection < 3) {
+                if (confirm("Anda telah menyelesaikan subseksi ini. Lanjut ke subseksi berikutnya?")) {
+                    goToNextSubsection();
+                }
+            } else {
+                alert("Anda telah mencapai soal terakhir Seksi 2. Silakan klik 'Finish & Submit' untuk menyelesaikan ujian.");
+            }
+        }
+    }
+
+    function previousQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderCurrentQuestion();
+        } else {
+            alert("Anda berada di soal pertama pada bagian ini.");
+        }
+    }
+
+    function confirmSubmit() {
+        let totalAnswered = userAnswers.filter(a => a !== null).length;
+        let totalQuestions = 90;
+        if (totalAnswered < totalQuestions) {
+            if (confirm(`Anda baru menjawab ${totalAnswered} dari ${totalQuestions} soal. Yakin ingin menyelesaikan ujian?`)) {
+                submitExam();
+            }
+        } else {
+            if (confirm("Anda telah menjawab semua soal. Yakin ingin menyelesaikan ujian?")) {
+                submitExam();
+            }
+        }
+    }
+
+    function submitExam() {
+        if (timerInterval) clearInterval(timerInterval);
+        
+        let totalScore = 0;
+        for (let i = 0; i < allQuestionsData.length; i++) {
+            let selected = userAnswers[i];
+            if (selected) {
+                let opt = allQuestionsData[i].options.find(o => o.label === selected);
+                if (opt) totalScore += opt.score;
+            }
+        }
+        
+        let percentage = (totalScore / (100 * 90)) * 100;
+        let passed = percentage >= 90;
+        
+        document.getElementById('resultName').innerHTML = `Name: ${pesertaName}`;
+        document.getElementById('resultScore').innerHTML = `${percentage.toFixed(2)}%`;
+        document.getElementById('resultDetail').innerHTML = passed ? 
+            '<div class="pass">✅ PASSED - Competency Standard Achieved (≥90%)<br>Congratulations! You have successfully passed the MANSOSKUL Level 4 assessment.</div>' : 
+            '<div class="fail">❌ NOT PASSED - Below Required Competency Threshold (90%)<br>Please review the materials and try again.</div>';
+        document.getElementById('resultModal').style.display = 'flex';
+    }
+
+    function closeModalAndReset() {
+        document.getElementById('resultModal').style.display = 'none';
+        currentSection = 1;
+        currentSubsection = 0;
+        currentIndex = 0;
+        userAnswers = new Array(90).fill(null);
+        timeLeft = 120 * 60;
+        pesertaName = "";
+        document.getElementById('namaPeserta').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('loginPanel').style.display = 'block';
+        document.getElementById('examContainer').style.display = 'none';
+        document.getElementById('sectionTransition').style.display = 'none';
+        if (timerInterval) clearInterval(timerInterval);
+    }
+</script>
+</body>
+</html>
