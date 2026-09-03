@@ -104,9 +104,8 @@ document.addEventListener('copy',function(e){e.preventDefault();alert("❌ Menya
 </div>
 <div id="resultModal" class="modal">
   <div class="modal-content">
-    <h2>🏆 HASIL SESI 1 🏆</h2>
+    <h2>✅ SESI 1 SELESAI ✅</h2>
     <p id="resultName"></p>
-    <div class="result-score" id="resultScore">0%</div>
     <p id="resultDetail"></p>
     <button class="btn" onclick="goToSesi2()" style="margin-top:16px;">▶ Lanjut ke Sesi 2</button>
   </div>
@@ -234,13 +233,11 @@ function submitExam(){
     if(sel){ let opt = section1Questions[i].options.find(o=>o.label===sel); if(opt) totalScore += opt.score; }
   }
   let totalMax = 100 * section1Questions.length;
-  let pct = (totalScore/totalMax*100).toFixed(2);
   localStorage.setItem(NS+'sesi1_score', totalScore);
   localStorage.setItem(NS+'sesi1_total', totalMax);
   localStorage.setItem(NS+'sesi1_status', 'selesai');
   document.getElementById('resultName').innerHTML = 'Nama: '+pesertaName;
-  document.getElementById('resultScore').innerHTML = pct+'%';
-  document.getElementById('resultDetail').innerHTML = '<div class="pass">Sesi 1 selesai dikumpulkan.<br>Skor akan digabungkan dengan Sesi 2 untuk hasil akhir.</div>';
+  document.getElementById('resultDetail').innerHTML = '<div class="pass">Jawaban Sesi 1 telah berhasil dikumpulkan.<br>Klik tombol di bawah untuk melanjutkan ke Sesi 2.</div>';
   document.getElementById('resultModal').style.display='flex';
 }
 function goToIndex(){ window.location.href='index.html'; }
